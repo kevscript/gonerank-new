@@ -1,3 +1,3 @@
 - [x] setup env vars for database and authentication
 - [x] prisma schema and connection to database
-- [] prisma client and seeding tools
+- [x] prisma client and seeding tools
