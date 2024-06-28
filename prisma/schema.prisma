@@ -1,0 +1,221 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Account {
+  id                String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId            String  @map("user_id") @db.Uuid
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id") @db.Uuid
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+enum UserRole {
+  ADMIN
+  USER
+
+  @@map("user_roles")
+}
+
+model User {
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name          String?
+  username      String?
+  role          UserRole  @default(USER)
+  email         String?   @unique
+  emailVerified DateTime? @map("email_verified")
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  votes         Vote[]
+
+  @@map("users")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+enum MatchLocation {
+  HOME
+  AWAY
+
+  @@map("match_location")
+}
+
+enum MatchResult {
+  WIN
+  LOSE
+  DRAW
+
+  @@map("match_result")
+}
+
+enum PlayerPosition {
+  ATTACKER
+  MIDFIELDER
+  DEFENDER
+  GOALKEEPER
+
+  @@map("player_position")
+}
+
+enum PlayerStatus {
+  STARTER
+  SUBSTITUTE
+
+  @@map("player_status")
+}
+
+model Match {
+  id             String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  location       MatchLocation
+  result         MatchResult
+  scores         Json
+  start_date     DateTime      @unique
+  active         Boolean       @default(false)
+  published      Boolean       @default(false)
+  opponent_id    String        @db.Uuid
+  competition_id String        @db.Uuid
+  season_id      String        @db.Uuid
+  players        MatchPlayer[]
+  opponent       Club          @relation(fields: [opponent_id], references: [id])
+  competition    Competition   @relation(fields: [competition_id], references: [id])
+  season         Season        @relation(fields: [season_id], references: [id])
+  votes          Vote[]
+
+  @@map("matches")
+}
+
+model Player {
+  id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  first_name   String?
+  last_name    String
+  country_code String
+  birth_date   DateTime       @db.Date
+  avatar_url   String?
+  matches      MatchPlayer[]
+  seasons      SeasonPlayer[]
+  votes        Vote[]
+
+  @@unique(name: "unique_player", [first_name, last_name])
+  @@map("players")
+}
+
+model MatchPlayer {
+  id              String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  match_id        String         @db.Uuid
+  player_id       String         @db.Uuid
+  player_position PlayerPosition
+  player_status   PlayerStatus
+  minutes_played  Int            @default(90)
+  match           Match          @relation(fields: [match_id], references: [id], onDelete: Cascade)
+  player          Player         @relation(fields: [player_id], references: [id], onDelete: Cascade)
+
+  @@unique(name: "unique_match_player", [player_id, match_id])
+  @@map("match_players")
+}
+
+model Club {
+  id              String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  country_code    String
+  full_name       String  @unique
+  name_code       String
+  primary_color   String
+  secondary_color String
+  logo_url        String?
+  matches         Match[]
+
+  @@map("clubs")
+}
+
+model Season {
+  id         String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  period     String         @unique
+  start_date DateTime       @unique @db.Date
+  end_date   DateTime       @unique @db.Date
+  active     Boolean        @default(false)
+  published  Boolean        @default(false)
+  matches    Match[]
+  players    SeasonPlayer[]
+
+  @@map("seasons")
+}
+
+model SeasonPlayer {
+  id        String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  player_id String @db.Uuid
+  season_id String @db.Uuid
+  player    Player @relation(fields: [player_id], references: [id], onDelete: Cascade)
+  season    Season @relation(fields: [season_id], references: [id], onDelete: Cascade)
+
+  @@unique(name: "unique_season_player", [player_id, season_id])
+  @@map("season_players")
+}
+
+model Competition {
+  id              String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  full_name       String  @unique
+  name_code       String  @unique
+  primary_color   String
+  secondary_color String
+  logo_url        String?
+  matches         Match[]
+
+  @@map("competitions")
+}
+
+model Vote {
+  id        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  rating    Int
+  motm      Boolean @default(false)
+  botm      Boolean @default(false)
+  user_id   String  @db.Uuid
+  user      User    @relation(fields: [user_id], references: [id])
+  match_id  String  @db.Uuid
+  match     Match   @relation(fields: [match_id], references: [id], onDelete: Cascade)
+  player_id String  @db.Uuid
+  player    Player  @relation(fields: [player_id], references: [id], onDelete: Cascade)
+
+  @@unique(name: "unique_vote", [player_id, match_id, user_id])
+  @@map("votes")
+}
