@@ -271,8 +271,8 @@ export function generateFakeVotes({
         match_id: matchPlayers[j].match_id,
         user_id: users[i].id,
         rating: Math.floor(Math.random() * (10 - 1 + 1)) + 1,
-        motm: Math.random() * 100 > 8 ? true : false,
-        botm: Math.random() * 100 > 8 ? true : false,
+        motm: Math.random() * 100 < 7 ? true : false,
+        botm: Math.random() * 100 < 7 ? true : false,
       });
     }
   }
