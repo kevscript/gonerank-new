@@ -1,19 +1,14 @@
 "use client";
 
-import {
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-import { useMemo } from "react";
-import { MatchesTableItem } from "./matches-table";
+import { createColumnHelper } from "@tanstack/react-table";
+import { MatchesTableData } from "./matches-table";
 import { TableCell } from "@/components/table-cell";
+import { Table } from "../table";
+import { useMemo } from "react";
 
-const columnHelper = createColumnHelper<MatchesTableItem>();
+const columnHelper = createColumnHelper<MatchesTableData>();
 
-export function MatchesTableBuilder({ data }: { data: MatchesTableItem[] }) {
+export function MatchesTableBuilder({ data }: { data: MatchesTableData[] }) {
   const columns = useMemo(
     () => [
       columnHelper.accessor("start_date", {
@@ -267,73 +262,13 @@ export function MatchesTableBuilder({ data }: { data: MatchesTableItem[] }) {
     []
   );
 
-  const table = useReactTable({
-    data: data,
-    columns: columns,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    enableSortingRemoval: false,
-    initialState: {
-      sorting: [{ id: "start_date", desc: true }],
-    },
-    sortingFns: {
-      numericalSort: (rowA, rowB, columnId) => {
-        let a = Number.parseFloat(rowA.getValue(columnId));
-        let b = Number.parseFloat(rowB.getValue(columnId));
-        if (Number.isNaN(a)) {
-          // Blanks and non-numeric strings to bottom
-          a = Number.NEGATIVE_INFINITY;
-        }
-        if (Number.isNaN(b)) {
-          b = Number.NEGATIVE_INFINITY;
-        }
-        if (a > b) return 1;
-        if (a < b) return -1;
-        return 0;
-      },
-    },
-  });
-
   return (
-    <div className="w-full overflow-x-auto border rounded">
-      <table className="w-full overflow-hidden">
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id} className="border-b">
-              {headerGroup.headers.map((header) => (
-                <th
-                  key={header.id}
-                  className="h-12 border-r last:border-none overflow-hidden text-xs font-medium text-left"
-                  style={{ width: header.getSize() }}
-                  onClick={header.column.getToggleSortingHandler()}
-                >
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id} className="border-b last:border-none">
-              {row.getVisibleCells().map((cell) => (
-                <td
-                  key={cell.id}
-                  className="h-12 border-r last:border-none text-sm"
-                  style={{ width: cell.column.getSize(), minWidth: "content" }}
-                >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <>
+      <Table
+        data={data}
+        columns={columns}
+        initialSort={{ id: "start_date", desc: true }}
+      />
+    </>
   );
 }

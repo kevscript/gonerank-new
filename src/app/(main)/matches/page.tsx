@@ -1,45 +1,45 @@
 import { MatchesPageHeader } from "@/components/matches-page-header";
 import { MatchesTable } from "@/components/tables/matches/matches-table";
-import { db } from "@/libs/kysely";
-import { Suspense } from "react";
+import { filterParamsSchema } from "@/schemas";
+import { Filters } from "@/types/filters";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
-type SearchParams = {
-  season?: string;
-  tab?: string;
-};
+export default async function MatchesPage() {
+  const headerList = headers();
+  const headerSearchParams = headerList.get("x-current-search-params");
+  const searchParams = new URLSearchParams(headerSearchParams || "");
 
-export default async function MatchesPage({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) {
-  const publishedSeasons = await db
-    .selectFrom("seasons")
-    .selectAll()
-    .where("published", "=", true)
-    .orderBy("end_date desc")
-    .execute();
+  const activeTab =
+    searchParams.get("tab")?.trim().toLowerCase() === "chart"
+      ? "chart"
+      : "table";
 
-  let activeSeasonId = null;
+  const validateFilterParams = await filterParamsSchema.safeParseAsync({
+    source: searchParams?.get("source") || undefined,
+    location: searchParams?.getAll("location") || undefined,
+    result: searchParams.getAll("result") || undefined,
+    season: searchParams.get("season") || undefined,
+    competition: searchParams.get("competition") || undefined,
+  });
 
-  const seasonExists = searchParams.season
-    ? publishedSeasons.find((season) => season.period === searchParams.season)
-    : undefined;
-
-  // no season in search params or does not exist
-  if (!searchParams.season || !seasonExists) {
-    const activeSeason = publishedSeasons.find((season) => season.active);
-    if (!activeSeason) {
-      activeSeasonId = publishedSeasons[0].id;
-    } else {
-      activeSeasonId = activeSeason.id;
-    }
-  } else {
-    activeSeasonId = seasonExists.id;
+  if (!validateFilterParams.success) {
+    const errors = validateFilterParams.error.format();
+    errors.season && searchParams.delete("season");
+    errors.competition && searchParams.delete("competition");
+    errors.location && searchParams.delete("location");
+    errors.result && searchParams.delete("result");
+    errors.source && searchParams.delete("source");
+    redirect(`/matches?${searchParams}`);
   }
 
-  const tabParam = searchParams.tab?.trim().toLowerCase();
-  const activeTab = tabParam === "chart" ? "chart" : "table";
+  const filters: Filters = {
+    source: searchParams?.get("source") || undefined,
+    location: searchParams?.getAll("location") || undefined,
+    result: searchParams.getAll("result") || undefined,
+    season: searchParams.get("season") || undefined,
+    competition: searchParams.get("competition") || undefined,
+  };
 
   return (
     <main className="p-12">
@@ -49,16 +49,13 @@ export default async function MatchesPage({
         <span>Filters</span>
       </div>
 
-      {activeTab === "table" && (
-        <Suspense fallback={"Loading..."}>
-          <MatchesTable seasonId={activeSeasonId} />
-        </Suspense>
-      )}
       {activeTab === "chart" && (
         <div>
           <span>Chart Tab Active</span>
         </div>
       )}
+
+      {activeTab === "table" && <MatchesTable filters={filters} />}
     </main>
   );
 }
