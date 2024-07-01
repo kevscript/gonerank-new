@@ -8,6 +8,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import Draggable from "../draggable";
 
 type TableProps = {
   data: RowData[];
@@ -31,8 +32,8 @@ export function Table({ data, columns, initialSort }: TableProps) {
   });
 
   return (
-    <>
-      <div className="w-full overflow-x-auto border rounded">
+    <div className="w-full overflow-x-auto border rounded select-none">
+      <Draggable>
         <table className="w-full overflow-hidden">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -77,7 +78,7 @@ export function Table({ data, columns, initialSort }: TableProps) {
             ))}
           </tbody>
         </table>
-      </div>
-    </>
+      </Draggable>
+    </div>
   );
 }

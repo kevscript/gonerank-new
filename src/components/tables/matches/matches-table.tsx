@@ -38,5 +38,16 @@ export async function MatchesTable({ filters }: MatchesTableProps) {
     return hasCompetition && hasLocation && hasResult;
   });
 
+  if (formatedMatchesTableData.length === 0) {
+    return (
+      <div className="flex w-full justify-center items-center h-16">
+        <span>
+          There is no matches corresponding to current filtering options. Try
+          something else.
+        </span>
+      </div>
+    );
+  }
+
   return <MatchesTableBuilder data={formatedMatchesTableData} />;
 }

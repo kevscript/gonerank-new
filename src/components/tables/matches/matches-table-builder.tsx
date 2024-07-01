@@ -2,7 +2,7 @@
 
 import { createColumnHelper } from "@tanstack/react-table";
 import { MatchesTableData } from "./matches-table";
-import { TableCell } from "@/components/table-cell";
+import { TableCell } from "@/components/tables/table-cell";
 import { Table } from "../table";
 import { useMemo } from "react";
 
@@ -263,12 +263,10 @@ export function MatchesTableBuilder({ data }: { data: MatchesTableData[] }) {
   );
 
   return (
-    <>
-      <Table
-        data={data}
-        columns={columns}
-        initialSort={{ id: "start_date", desc: true }}
-      />
-    </>
+    <Table
+      data={data}
+      columns={columns}
+      initialSort={{ id: "start_date", desc: true }}
+    />
   );
 }
