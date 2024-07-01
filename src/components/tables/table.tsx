@@ -3,6 +3,7 @@
 import {
   ColumnDef,
   RowData,
+  VisibilityState,
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
@@ -17,9 +18,15 @@ type TableProps = {
     id: string;
     desc: boolean;
   };
+  columnVisibility?: VisibilityState;
 };
 
-export function Table({ data, columns, initialSort }: TableProps) {
+export function Table({
+  data,
+  columns,
+  initialSort,
+  columnVisibility,
+}: TableProps) {
   const table = useReactTable({
     data: data,
     columns: columns,
@@ -28,6 +35,9 @@ export function Table({ data, columns, initialSort }: TableProps) {
     enableSortingRemoval: false,
     initialState: {
       sorting: initialSort ? [initialSort] : undefined,
+    },
+    state: {
+      columnVisibility: columnVisibility,
     },
   });
 
