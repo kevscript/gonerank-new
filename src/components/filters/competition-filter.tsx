@@ -35,7 +35,7 @@ export function CompetitionFilter({
         id="competition"
         value={searchParams.get("competition") || "all"}
         onChange={(e) => handleSeasonFilter(e.target.value)}
-        className="h-10 px-2"
+        className="h-10 px-2 border rounded bg-transparent"
       >
         <option value="all">All Competitions</option>
         {competitions.map((competition) => (

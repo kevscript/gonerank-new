@@ -31,7 +31,7 @@ export function SeasonFilter({ seasons }: { seasons: Season[] }) {
           seasons.sort((a, b) => (a.end_date > b.end_date ? -1 : 1))[0].period
         }
         onChange={(e) => handleSeasonFilter(e.target.value)}
-        className="h-10 px-2"
+        className="h-10 px-2 bg-transparent border rounded"
       >
         {seasons.map((season) => (
           <option key={season.id} value={season.period}>

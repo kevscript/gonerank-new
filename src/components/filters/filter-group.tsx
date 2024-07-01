@@ -11,14 +11,14 @@ export async function FilterGroup() {
   const competition = await getAllCompetitions();
 
   return (
-    <div className="flex gap-4 justify-between items-center w-full flex-wrap">
-      <SourceFilter />
-      <div className="flex gap-4">
-        <ResultFilter />
-        <LocationFilter />
-        <CompetitionFilter competitions={competition} />
-        <SeasonFilter seasons={seasons} />
+    <div className="flex gap-4 items-center w-full flex-wrap">
+      <div className="mr-auto">
+        <SourceFilter />
       </div>
+      <ResultFilter />
+      <LocationFilter />
+      <CompetitionFilter competitions={competition} />
+      <SeasonFilter seasons={seasons} />
     </div>
   );
 }

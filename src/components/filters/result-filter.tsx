@@ -24,7 +24,7 @@ export function ResultFilter() {
   }
 
   return (
-    <div className="flex gap-2">
+    <div className="flex">
       <div className="flex">
         <input
           type="checkbox"
@@ -35,10 +35,10 @@ export function ResultFilter() {
         />
         <label
           htmlFor="result-win"
-          className="select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-gray-200 peer-checked:text-gray-900 peer-checked:border-gray-200"
+          className="w-10 justify-center select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-neutral-50 peer-checked:text-gray-900 peer-checked:border-gray-200 rounded-l border-r-0"
         >
           {" "}
-          WIN{" "}
+          W{" "}
         </label>
       </div>
       <div className="flex">
@@ -51,10 +51,10 @@ export function ResultFilter() {
         />
         <label
           htmlFor="result-draw"
-          className="select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-gray-200 peer-checked:text-gray-900 peer-checked:border-gray-200"
+          className="w-10 justify-center select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-neutral-50 peer-checked:text-gray-900 peer-checked:border-gray-200"
         >
           {" "}
-          DRAW{" "}
+          D{" "}
         </label>
       </div>
       <div className="flex">
@@ -67,10 +67,10 @@ export function ResultFilter() {
         />
         <label
           htmlFor="result-lose"
-          className="select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-gray-200 peer-checked:text-gray-900 peer-checked:border-gray-200"
+          className="w-10 justify-center select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-neutral-50 peer-checked:text-gray-900 peer-checked:border-gray-200 rounded-r border-l-0"
         >
           {" "}
-          LOSE{" "}
+          L{" "}
         </label>
       </div>
     </div>

@@ -26,7 +26,7 @@ export function LocationFilter() {
   }
 
   return (
-    <div className="flex gap-2">
+    <div className="flex">
       <div className="flex">
         <input
           type="checkbox"
@@ -37,10 +37,10 @@ export function LocationFilter() {
         />
         <label
           htmlFor="location-home"
-          className="select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-gray-200 peer-checked:text-gray-900 peer-checked:border-gray-200"
+          className="w-10 justify-center select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-neutral-50 peer-checked:text-gray-900 peer-checked:border-gray-200 rounded-l border-r-0"
         >
           {" "}
-          Home{" "}
+          H{" "}
         </label>
       </div>
       <div className="flex">
@@ -53,10 +53,10 @@ export function LocationFilter() {
         />
         <label
           htmlFor="location-away"
-          className="select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-gray-200 peer-checked:text-gray-900 peer-checked:border-gray-200"
+          className="w-10 justify-center select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-neutral-50 peer-checked:text-gray-900 peer-checked:border-gray-200 rounded-r"
         >
           {" "}
-          Away{" "}
+          A{" "}
         </label>
       </div>
     </div>

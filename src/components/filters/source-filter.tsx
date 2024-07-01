@@ -22,7 +22,7 @@ export function SourceFilter() {
   }
 
   return (
-    <div className="flex gap-2">
+    <div className="flex">
       <div className="flex">
         <input
           type="checkbox"
@@ -36,7 +36,7 @@ export function SourceFilter() {
         />
         <label
           htmlFor="source-community"
-          className="select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-gray-200 peer-checked:text-gray-900 peer-checked:border-gray-200"
+          className="select-none cursor-pointer border h-10 flex items-center font-medium text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-neutral-50 peer-checked:text-gray-900 peer-checked:border-gray-200 rounded-l border-r-0 px-2"
         >
           {" "}
           Community{" "}
@@ -52,7 +52,7 @@ export function SourceFilter() {
         />
         <label
           htmlFor="source-user"
-          className="select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-gray-200 peer-checked:text-gray-900 peer-checked:border-gray-200"
+          className="select-none cursor-pointer border h-10 flex items-center font-medium text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-neutral-50 peer-checked:text-gray-900 peer-checked:border-gray-200 rounded-r px-2"
         >
           {" "}
           User{" "}
