@@ -1,3 +1,4 @@
+import { FilterGroup } from "@/components/filters/filter-group";
 import { MatchesPageHeader } from "@/components/matches-page-header";
 import { MatchesTable } from "@/components/tables/matches/matches-table";
 import { filterParamsSchema } from "@/schemas";
@@ -45,8 +46,8 @@ export default async function MatchesPage() {
     <main className="p-12">
       <MatchesPageHeader />
 
-      <div className="w-full bg-neutral-100 h-12 my-8 flex justify-center items-center">
-        <span>Filters</span>
+      <div className="my-8">
+        <FilterGroup />
       </div>
 
       {activeTab === "chart" && (
