@@ -4,11 +4,19 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { MatchesTableData } from "./matches-table";
 import { TableCell } from "@/components/tables/table-cell";
 import { Table } from "../table";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const columnHelper = createColumnHelper<MatchesTableData>();
 
 export function MatchesTableBuilder({ data }: { data: MatchesTableData[] }) {
+  const searchParams = useSearchParams();
+  const matchHref = useCallback(
+    (matchId: string) => `/matches/${matchId}?${searchParams.toString()}`,
+    [searchParams]
+  );
+
   const columns = useMemo(
     () => [
       columnHelper.accessor("start_date", {
@@ -44,15 +52,17 @@ export function MatchesTableBuilder({ data }: { data: MatchesTableData[] }) {
         cell: (data) => {
           const opponent = data.row.original.opponent;
           return (
-            <div className="h-full flex items-center justify-center md:justify-start px-2 md:px-4 min-w-12 md:min-w-32 lg:min-w-64">
-              <div className="flex gap-4 items-center shrink-0 flex-nowrap">
-                <div className="size-8 shrink-0 rounded-full bg-neutral-200"></div>
-                <span className="hidden lg:block">{opponent?.full_name}</span>
-                <span className="hidden md:block lg:hidden">
-                  {opponent?.name_code}
-                </span>
+            <Link href={matchHref(data.row.original.match_id)}>
+              <div className="h-full flex items-center justify-center md:justify-start px-2 md:px-4 min-w-12 md:min-w-32 lg:min-w-64">
+                <div className="flex gap-4 items-center shrink-0 flex-nowrap">
+                  <div className="size-8 shrink-0 rounded-full bg-neutral-200"></div>
+                  <span className="hidden lg:block">{opponent?.full_name}</span>
+                  <span className="hidden md:block lg:hidden">
+                    {opponent?.name_code}
+                  </span>
+                </div>
               </div>
-            </div>
+            </Link>
           );
         },
       }),
@@ -259,7 +269,7 @@ export function MatchesTableBuilder({ data }: { data: MatchesTableData[] }) {
         }
       ),
     ],
-    []
+    [matchHref]
   );
 
   return (
