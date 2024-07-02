@@ -18,6 +18,7 @@ export const getPlayersTableData = unstable_cache(
           eb
             .selectFrom("match_players as mp")
             .innerJoin("matches as m", "mp.match_id", "m.id")
+            .where("m.season_id", "=", seasonId)
             .leftJoin("votes as v", (join) => {
               let voteJoin = join
                 .onRef("v.match_id", "=", "mp.match_id")
