@@ -1,14 +1,11 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 
 export function MatchesPageTabs() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
-  useEffect(() => {}, []);
 
   function handleTab(newTab: string) {
     const tabParam = searchParams.get("tab");

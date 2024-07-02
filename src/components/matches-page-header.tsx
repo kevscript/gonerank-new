@@ -1,4 +1,4 @@
-import { MatchesPageTabs } from "./matches-page-tabs";
+import { MatchesPageTabs } from "./matches-tabs";
 
 export function MatchesPageHeader() {
   return (
