@@ -7,6 +7,15 @@ import { Table } from "../table";
 import { useCallback, useMemo } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import {
+  ArrowDownRight,
+  ArrowUpRight,
+  Calendar,
+  Globe,
+  MapPin,
+  Swords,
+  Trophy,
+} from "lucide-react";
 
 const columnHelper = createColumnHelper<MatchesTableData>();
 
@@ -30,7 +39,7 @@ export function MatchesTableBuilder({
         header: () => {
           return (
             <TableCell minRem={4}>
-              <span>Date</span>
+              <Calendar className="size-4" />
             </TableCell>
           );
         },
@@ -78,7 +87,7 @@ export function MatchesTableBuilder({
         header: () => {
           return (
             <TableCell minRem={4}>
-              <span>Location</span>
+              <MapPin className="size-4" />
             </TableCell>
           );
         },
@@ -92,7 +101,7 @@ export function MatchesTableBuilder({
         header: () => {
           return (
             <TableCell minRem={4}>
-              <span>Comp</span>
+              <Trophy className="size-4" />
             </TableCell>
           );
         },
@@ -112,7 +121,7 @@ export function MatchesTableBuilder({
           header: () => {
             return (
               <TableCell minRem={3}>
-                <span>Result</span>
+                <Swords className="size-4" />
               </TableCell>
             );
           },
@@ -140,7 +149,8 @@ export function MatchesTableBuilder({
           header: () => {
             return (
               <TableCell minRem={4}>
-                <span>+DIFF</span>
+                <span>Diff</span>
+                <ArrowUpRight className="size-4" />
               </TableCell>
             );
           },
@@ -163,7 +173,8 @@ export function MatchesTableBuilder({
           header: () => {
             return (
               <TableCell minRem={4}>
-                <span>-DIFF</span>
+                <span>Diff</span>
+                <ArrowDownRight className="size-4" />
               </TableCell>
             );
           },
@@ -188,7 +199,7 @@ export function MatchesTableBuilder({
           header: () => {
             return (
               <TableCell minRem={4}>
-                <span>DIFF</span>
+                <span>Diff</span>
               </TableCell>
             );
           },
@@ -215,7 +226,8 @@ export function MatchesTableBuilder({
           header: () => {
             return (
               <TableCell minRem={4}>
-                <span>{isUser ? "-Rating" : "-AVG"}</span>
+                <span>{isUser ? "Rating" : "AVG"}</span>
+                <ArrowDownRight className="size-4" />
               </TableCell>
             );
           },
@@ -243,6 +255,7 @@ export function MatchesTableBuilder({
             return (
               <TableCell minRem={4}>
                 <span>{isUser ? "Rating" : "+AVG"}</span>
+                <ArrowUpRight className="size-4" />
               </TableCell>
             );
           },
@@ -265,7 +278,7 @@ export function MatchesTableBuilder({
           header: () => {
             return (
               <TableCell minRem={4}>
-                <span>AVG</span>
+                <span>Avg</span>
               </TableCell>
             );
           },

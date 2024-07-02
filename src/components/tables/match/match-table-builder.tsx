@@ -7,6 +7,12 @@ import { Table } from "../table";
 import { useCallback, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import {
+  ArrowDownRight,
+  ArrowUpRight,
+  ThumbsDown,
+  ThumbsUp,
+} from "lucide-react";
 
 const columnHelper = createColumnHelper<MatchTableData>();
 
@@ -97,7 +103,7 @@ export function MatchTableBuilder({
         header: () => {
           return (
             <TableCell minRem={4}>
-              <span>MOTM</span>
+              <ThumbsUp className="size-4" />
             </TableCell>
           );
         },
@@ -112,7 +118,7 @@ export function MatchTableBuilder({
         header: () => {
           return (
             <TableCell minRem={4}>
-              <span>BOTM</span>
+              <ThumbsDown className="size-4" />
             </TableCell>
           );
         },
@@ -127,7 +133,8 @@ export function MatchTableBuilder({
         header: () => {
           return (
             <TableCell minRem={4}>
-              <span>+DIFF</span>
+              <span>Diff</span>
+              <ArrowUpRight className="size-4" />
             </TableCell>
           );
         },
@@ -142,7 +149,8 @@ export function MatchTableBuilder({
         header: () => {
           return (
             <TableCell minRem={4}>
-              <span>-DIFF</span>
+              <span>Diff</span>
+              <ArrowDownRight className="size-4" />
             </TableCell>
           );
         },
@@ -159,7 +167,7 @@ export function MatchTableBuilder({
           header: () => {
             return (
               <TableCell minRem={4}>
-                <span>DIFF</span>
+                <span>Diff</span>
               </TableCell>
             );
           },
@@ -175,7 +183,8 @@ export function MatchTableBuilder({
         header: () => {
           return (
             <TableCell minRem={4}>
-              <span>+Rating</span>
+              <span>Rating</span>
+              <ArrowUpRight className="size-4" />
             </TableCell>
           );
         },
@@ -190,7 +199,8 @@ export function MatchTableBuilder({
         header: () => {
           return (
             <TableCell minRem={4}>
-              <span>-Rating</span>
+              <span>Rating</span>
+              <ArrowDownRight className="size-4" />
             </TableCell>
           );
         },
@@ -209,7 +219,7 @@ export function MatchTableBuilder({
           header: () => {
             return (
               <TableCell minRem={4}>
-                <span>AVG</span>
+                <span>{isUser ? "Rating" : "Avg"}</span>
               </TableCell>
             );
           },
@@ -221,7 +231,7 @@ export function MatchTableBuilder({
         }
       ),
     ],
-    [playerHref]
+    [playerHref, isUser]
   );
 
   return (
@@ -234,10 +244,11 @@ export function MatchTableBuilder({
           ? {
               "negative-diff": false,
               "positive-diff": false,
+              diff: false,
               "min-rating": false,
               "max-rating": false,
-              "motm-count": false,
-              "botm-count": false,
+              // "motm-count": false,
+              // "botm-count": false,
             }
           : undefined
       }

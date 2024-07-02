@@ -7,6 +7,7 @@ import { useCallback, useMemo } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { PlayersTableData } from "./players-table";
+import { ArrowDownRight, ArrowUpRight, Timer } from "lucide-react";
 
 const columnHelper = createColumnHelper<PlayersTableData>();
 
@@ -33,13 +34,13 @@ export function PlayersTableBuilder({ data }: { data: PlayersTableData[] }) {
           const player = data.row.original;
           return (
             <Link href={playerHref(data.row.original.player_id)}>
-              <div className="h-full flex items-center justify-center md:justify-start px-2 md:px-4 min-w-12 md:min-w-52 lg:min-w-64">
+              <div className="h-full flex items-center group justify-center md:justify-start px-2 md:px-4 min-w-12 md:min-w-52 lg:min-w-64">
                 <div className="flex gap-4 items-center shrink-0 flex-nowrap">
                   <div className="size-8 shrink-0 rounded-full bg-neutral-200"></div>
-                  <span className="hidden lg:block">
+                  <span className="hidden lg:block group-hover:underline underline-offset-4">
                     {player.first_name + " " + player.last_name}
                   </span>
-                  <span className="hidden md:block lg:hidden">
+                  <span className="hidden md:block lg:hidden group-hover:underline underline-offset-4">
                     {player.first_name?.[0] + ". " + player.last_name}
                   </span>
                 </div>
@@ -76,7 +77,7 @@ export function PlayersTableBuilder({ data }: { data: PlayersTableData[] }) {
           header: () => {
             return (
               <TableCell minRem={4}>
-                <span>Minutes</span>
+                <Timer className="size-4" />
               </TableCell>
             );
           },
@@ -102,7 +103,8 @@ export function PlayersTableBuilder({ data }: { data: PlayersTableData[] }) {
           header: () => {
             return (
               <TableCell minRem={4}>
-                <span>+Diff</span>
+                <span>Diff</span>
+                <ArrowUpRight className="size-4" />
               </TableCell>
             );
           },
@@ -127,7 +129,8 @@ export function PlayersTableBuilder({ data }: { data: PlayersTableData[] }) {
           header: () => {
             return (
               <TableCell minRem={4}>
-                <span>-Diff</span>
+                <span>Diff</span>
+                <ArrowDownRight className="size-4" />
               </TableCell>
             );
           },
@@ -165,31 +168,6 @@ export function PlayersTableBuilder({ data }: { data: PlayersTableData[] }) {
       ),
       columnHelper.accessor(
         (row) => {
-          let lowestAvg = 10;
-          row.matches.forEach((match) => {
-            if (match.avg_rating < lowestAvg) lowestAvg = match.avg_rating;
-          });
-
-          return isUser ? lowestAvg : lowestAvg.toFixed(2);
-        },
-        {
-          id: "lowest-avg",
-          header: () => {
-            return (
-              <TableCell minRem={4}>
-                <span>Lowest AVG</span>
-              </TableCell>
-            );
-          },
-          cell: (data) => (
-            <TableCell minRem={4}>
-              <span>{data.getValue()}</span>
-            </TableCell>
-          ),
-        }
-      ),
-      columnHelper.accessor(
-        (row) => {
           let highestAvg = 0;
           row.matches.forEach((match) => {
             if (match.avg_rating > highestAvg) highestAvg = match.avg_rating;
@@ -202,7 +180,34 @@ export function PlayersTableBuilder({ data }: { data: PlayersTableData[] }) {
           header: () => {
             return (
               <TableCell minRem={4}>
-                <span>Highest AVG</span>
+                <span>{isUser ? "Rating" : "Avg"}</span>
+                <ArrowUpRight className="size-4" />
+              </TableCell>
+            );
+          },
+          cell: (data) => (
+            <TableCell minRem={4}>
+              <span>{data.getValue()}</span>
+            </TableCell>
+          ),
+        }
+      ),
+      columnHelper.accessor(
+        (row) => {
+          let lowestAvg = 10;
+          row.matches.forEach((match) => {
+            if (match.avg_rating < lowestAvg) lowestAvg = match.avg_rating;
+          });
+
+          return isUser ? lowestAvg : lowestAvg.toFixed(2);
+        },
+        {
+          id: "lowest-avg",
+          header: () => {
+            return (
+              <TableCell minRem={4}>
+                <span>{isUser ? "Rating" : "Avg"}</span>
+                <ArrowDownRight className="size-4" />
               </TableCell>
             );
           },
