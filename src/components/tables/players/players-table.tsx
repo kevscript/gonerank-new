@@ -21,33 +21,29 @@ export async function PlayersTable({ filters }: PlayersTableProps) {
     userId: filters.source === "user" ? userId : undefined,
   });
 
-  // let formatedMatchesTableData = [...matchesTableData].filter((match) => {
-  //   const hasCompetition =
-  //     !filters.competition ||
-  //     match.competition?.name_code.trim().toLowerCase() ===
-  //       filters.competition.trim().toLowerCase();
-  //   const hasLocation =
-  //     !filters.location ||
-  //     filters.location.length === 0 ||
-  //     filters.location.includes(match.location.toLowerCase());
-  //   const hasResult =
-  //     !filters.result ||
-  //     filters.result.length === 0 ||
-  //     filters.result.includes(match.result.toLowerCase());
+  const formatedPlayersTableData = playersTableData.map((player) => {
+    const filteredMatches = player.matches.filter((match) => {
+      const hasCompetition =
+        !filters.competition ||
+        match.competition?.name_code?.trim().toLowerCase() ===
+          filters.competition.trim().toLowerCase();
+      const hasLocation =
+        !filters.location ||
+        filters.location.length === 0 ||
+        filters.location.includes(match.location.toLowerCase());
+      const hasResult =
+        !filters.result ||
+        filters.result.length === 0 ||
+        filters.result.includes(match.result.toLowerCase());
 
-  //   return hasCompetition && hasLocation && hasResult;
-  // });
+      return hasCompetition && hasLocation && hasResult;
+    });
 
-  // if (formatedMatchesTableData.length === 0) {
-  //   return (
-  //     <div className="flex w-full justify-center items-center h-16">
-  //       <span>
-  //         There is no matches corresponding to current filtering options. Try
-  //         something else.
-  //       </span>
-  //     </div>
-  //   );
-  // }
+    return {
+      ...player,
+      matches: filteredMatches,
+    };
+  });
 
-  return <PlayersTableBuilder data={playersTableData} />;
+  return <PlayersTableBuilder data={formatedPlayersTableData} />;
 }
