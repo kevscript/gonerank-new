@@ -10,7 +10,13 @@ import { useSearchParams } from "next/navigation";
 
 const columnHelper = createColumnHelper<MatchesTableData>();
 
-export function MatchesTableBuilder({ data }: { data: MatchesTableData[] }) {
+export function MatchesTableBuilder({
+  data,
+  isUser = false,
+}: {
+  data: MatchesTableData[];
+  isUser: boolean;
+}) {
   const searchParams = useSearchParams();
   const matchHref = useCallback(
     (matchId: string) => `/matches/${matchId}?${searchParams.toString()}`,
@@ -53,11 +59,13 @@ export function MatchesTableBuilder({ data }: { data: MatchesTableData[] }) {
           const opponent = data.row.original.opponent;
           return (
             <Link href={matchHref(data.row.original.match_id)}>
-              <div className="h-full flex items-center justify-center md:justify-start px-2 md:px-4 min-w-12 md:min-w-32 lg:min-w-64">
+              <div className="h-full flex items-center group justify-center md:justify-start px-2 md:px-4 min-w-12 md:min-w-32 lg:min-w-64">
                 <div className="flex gap-4 items-center shrink-0 flex-nowrap">
                   <div className="size-8 shrink-0 rounded-full bg-neutral-200"></div>
-                  <span className="hidden lg:block">{opponent?.full_name}</span>
-                  <span className="hidden md:block lg:hidden">
+                  <span className="hidden lg:block group-hover:underline underline-offset-4">
+                    {opponent?.full_name}
+                  </span>
+                  <span className="hidden md:block lg:hidden group-hover:underline underline-offset-4">
                     {opponent?.name_code}
                   </span>
                 </div>
@@ -200,14 +208,14 @@ export function MatchesTableBuilder({ data }: { data: MatchesTableData[] }) {
               worstAvg = playerAvg;
             }
           });
-          return worstAvg.toFixed(2);
+          return isUser ? worstAvg : worstAvg.toFixed(2);
         },
         {
           id: "worst-avg",
           header: () => {
             return (
               <TableCell minRem={4}>
-                <span>-AVG</span>
+                <span>{isUser ? "-Rating" : "-AVG"}</span>
               </TableCell>
             );
           },
@@ -227,14 +235,14 @@ export function MatchesTableBuilder({ data }: { data: MatchesTableData[] }) {
               bestAvg = playerAvg;
             }
           });
-          return bestAvg.toFixed(2);
+          return isUser ? bestAvg : bestAvg.toFixed(2);
         },
         {
           id: "best-avg",
           header: () => {
             return (
               <TableCell minRem={4}>
-                <span>+AVG</span>
+                <span>{isUser ? "Rating" : "+AVG"}</span>
               </TableCell>
             );
           },
@@ -269,7 +277,7 @@ export function MatchesTableBuilder({ data }: { data: MatchesTableData[] }) {
         }
       ),
     ],
-    [matchHref]
+    [matchHref, isUser]
   );
 
   return (

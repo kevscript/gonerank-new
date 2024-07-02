@@ -40,14 +40,21 @@ export async function MatchesTable({ filters }: MatchesTableProps) {
 
   if (formatedMatchesTableData.length === 0) {
     return (
-      <div className="flex w-full justify-center items-center h-16">
+      <div className="flex w-full justify-center items-center min-h-16 border rounded p-4">
         <span>
-          There is no matches corresponding to current filtering options. Try
+          Seems like no matches are corresponding to current options. Try
           something else.
         </span>
       </div>
     );
   }
 
-  return <MatchesTableBuilder data={formatedMatchesTableData} />;
+  return (
+    <>
+      <MatchesTableBuilder
+        data={formatedMatchesTableData}
+        isUser={filters.source === "user"}
+      />
+    </>
+  );
 }
