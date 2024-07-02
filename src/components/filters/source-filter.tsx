@@ -55,7 +55,7 @@ export function SourceFilter() {
           className="select-none cursor-pointer border h-10 flex items-center font-medium text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-neutral-50 peer-checked:text-gray-900 peer-checked:border-gray-200 rounded-r px-2"
         >
           {" "}
-          User{" "}
+          You{" "}
         </label>
       </div>
     </div>
