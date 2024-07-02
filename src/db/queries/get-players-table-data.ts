@@ -48,7 +48,9 @@ export const getPlayersTableData = unstable_cache(
               ebx
                 .cast<number>(ebx.fn.sum("v.rating"), "integer")
                 .as("total_rating"),
-
+              ebx
+                .cast<number>(ebx.fn.avg("v.rating"), "decimal")
+                .as("avg_rating"),
               ebx
                 .cast<number>(ebx.fn.count("v.id"), "integer")
                 .as("vote_count"),
