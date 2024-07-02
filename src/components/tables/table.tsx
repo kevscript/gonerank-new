@@ -51,7 +51,7 @@ export function Table({
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="h-12 border-r last:border-none overflow-hidden text-xs font-medium text-left"
+                    className="h-12 border-r last:border-none overflow-hidden text-xs font-medium text-left cursor-pointer"
                     style={{ width: header.getSize() }}
                     onClick={header.column.getToggleSortingHandler()}
                   >

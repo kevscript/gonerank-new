@@ -19,6 +19,7 @@ export default function MainLayout({
       <div className="flex flex-row flex-nowrap w-full h-full">
         <Sidebar />
         <Popbar />
+
         <main className="relative flex-1 overflow-y-auto overflow-x-hidden">
           <Header />
 
