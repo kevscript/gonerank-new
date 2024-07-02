@@ -25,7 +25,7 @@ export function MatchTableBuilder({
 }) {
   const searchParams = useSearchParams();
   const playerHref = useCallback(
-    (playerId: string) => `/player/${playerId}?${searchParams.toString()}`,
+    (playerId: string) => `/players/${playerId}?${searchParams.toString()}`,
     [searchParams]
   );
 

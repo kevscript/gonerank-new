@@ -15,7 +15,7 @@ export function PlayersTableBuilder({ data }: { data: PlayersTableData[] }) {
   const searchParams = useSearchParams();
   const isUser = searchParams.get("source") === "user";
   const playerHref = useCallback(
-    (playerId: string) => `/player/${playerId}?${searchParams.toString()}`,
+    (playerId: string) => `/players/${playerId}?${searchParams.toString()}`,
     [searchParams]
   );
 
