@@ -43,7 +43,7 @@ export default async function MatchesPage() {
   };
 
   return (
-    <main className="p-12">
+    <div className="p-4 lg:p-8 xl:p-12">
       <MatchesPageHeader />
 
       <div className="my-8">
@@ -57,6 +57,6 @@ export default async function MatchesPage() {
       )}
 
       {activeTab === "table" && <MatchesTable filters={filters} />}
-    </main>
+    </div>
   );
 }

@@ -43,7 +43,7 @@ export default async function PlayersPage() {
   };
 
   return (
-    <main className="p-12">
+    <div className="p-4 lg:p-8 xl:p-12">
       {" "}
       <div className="flex justify-between gap-8 items-baseline w-full relative">
         <h1 className="font-bold text-3xl tracking-tight">Players</h1>
@@ -59,6 +59,6 @@ export default async function PlayersPage() {
         </div>
       )}
       {activeTab === "table" && <PlayersTable filters={filters} />}
-    </main>
+    </div>
   );
 }
