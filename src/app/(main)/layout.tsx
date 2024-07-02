@@ -1,3 +1,7 @@
+import { Header } from "@/components/header";
+import { Popbar } from "@/components/popbar";
+import { Sidebar } from "@/components/sidebar";
+import { PopbarProvider } from "@/hooks/usePopbar";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,25 +15,16 @@ export default function MainLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex flex-row flex-nowrap w-full h-full">
-      <div className="w-16 h-full bg-neutral-200 pr-[1px] hidden lg:block">
-        <div className="w-full h-full bg-white">
-          <div className="flex flex-col w-full h-full justify-between py-4">
-            <div className="w-full flex justify-center">
-              <div className="size-10 flex justify-center items-center bg-neutral-100">
-                <span className="font-black">GR</span>
-              </div>
-            </div>
-            <div className="w-full">Nav</div>
-            <div className="w-full flex justify-center">
-              <div className="size-10 rounded-full bg-neutral-200"></div>
-            </div>
-          </div>
-        </div>
+    <PopbarProvider>
+      <div className="flex flex-row flex-nowrap w-full h-full">
+        <Sidebar />
+        <Popbar />
+        <main className="relative flex-1 overflow-y-auto overflow-x-hidden">
+          <Header />
+
+          {children}
+        </main>
       </div>
-      <main className="relative flex-1 overflow-y-auto overflow-x-hidden">
-        {children}
-      </main>
-    </div>
+    </PopbarProvider>
   );
 }
