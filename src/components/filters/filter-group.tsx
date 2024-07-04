@@ -8,8 +8,10 @@ import { SourceFilter } from "./source-filter";
 import { Suspense } from "react";
 
 export async function FilterGroup() {
-  const seasons = await getPublishedSeasons();
-  const competition = await getAllCompetitions();
+  const [seasons, competitions] = await Promise.all([
+    getPublishedSeasons(),
+    getAllCompetitions(),
+  ]);
 
   return (
     <div className="flex gap-4 items-center w-full flex-wrap">
@@ -19,7 +21,7 @@ export async function FilterGroup() {
         </div>
         <ResultFilter />
         <LocationFilter />
-        <CompetitionFilter competitions={competition} />
+        <CompetitionFilter competitions={competitions} />
         <SeasonFilter seasons={seasons} />
       </Suspense>
     </div>
