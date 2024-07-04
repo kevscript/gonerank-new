@@ -38,6 +38,17 @@ export async function PlayerTable({ filters, playerId }: PlayerTableProps) {
     return hasCompetition && hasLocation && hasResult;
   });
 
+  if (formatedPlayerTableData.length === 0) {
+    return (
+      <div className="flex w-full justify-center items-center min-h-16 border rounded p-4">
+        <span>
+          Seems like no matches are corresponding to current options. Try
+          something else.
+        </span>
+      </div>
+    );
+  }
+
   return (
     <PlayerTableBuilder
       data={formatedPlayerTableData}
