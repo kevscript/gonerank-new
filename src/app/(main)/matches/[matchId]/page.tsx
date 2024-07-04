@@ -20,7 +20,7 @@ export default async function MatchPage({
   );
 
   if (!valid) {
-    redirect(`/matches?${searchParams}`);
+    redirect(`/matches/${params.matchId}?${searchParams}`);
   }
 
   const filters = generateFiltersFromParams(searchParams);
