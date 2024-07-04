@@ -12,8 +12,6 @@ type InvalidParamsReturnType = {
   invalidatedParams: Array<string>;
 };
 
-type ReturnType = ValidParamsReturnType | InvalidParamsReturnType;
-
 /**
  * This function accepts URLSearchParams and validates the filter params with Zod.
  * If the validation is unsuccessful it will remove faulty filters from the URLSearchParams.
@@ -21,7 +19,7 @@ type ReturnType = ValidParamsReturnType | InvalidParamsReturnType;
  */
 export async function validateFilterParams(
   searchParams: URLSearchParams
-): Promise<ReturnType> {
+): Promise<ValidParamsReturnType | InvalidParamsReturnType> {
   const validateFilterParams = await filterParamsSchema.safeParseAsync({
     source: searchParams?.get("source") || undefined,
     location: searchParams?.getAll("location") || undefined,
