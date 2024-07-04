@@ -1,6 +1,8 @@
 import { SourceFilter } from "@/components/filters/source-filter";
+import { MatchHeader } from "@/components/match-header";
 import { MatchTable } from "@/components/tables/match/match-table";
-import { filterParamsSchema } from "@/schemas";
+import { generateFiltersFromParams } from "@/utils/generate-filters-from-params";
+import { validateFilterParams } from "@/utils/validate-filter-params";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -9,36 +11,24 @@ export default async function MatchPage({
 }: {
   params: { matchId: string };
 }) {
-  const headerList = headers();
-  const headerSearchParams = headerList.get("x-current-search-params");
-  const searchParams = new URLSearchParams(headerSearchParams || "");
+  const headerSearchParams = new URLSearchParams(
+    headers().get("x-current-search-params") || ""
+  );
+
+  const { valid, searchParams } = await validateFilterParams(
+    headerSearchParams
+  );
+
+  if (!valid) {
+    redirect(`/matches?${searchParams}`);
+  }
+
+  const filters = generateFiltersFromParams(searchParams);
 
   const activeTab =
     searchParams.get("tab")?.trim().toLowerCase() === "chart"
       ? "chart"
       : "table";
-
-  const validateFilterParams = await filterParamsSchema.safeParseAsync({
-    source: searchParams?.get("source") || undefined,
-    location: searchParams?.getAll("location") || undefined,
-    result: searchParams.getAll("result") || undefined,
-    season: searchParams.get("season") || undefined,
-    competition: searchParams.get("competition") || undefined,
-  });
-
-  if (!validateFilterParams.success) {
-    const errors = validateFilterParams.error.format();
-    errors.season && searchParams.delete("season");
-    errors.competition && searchParams.delete("competition");
-    errors.location && searchParams.delete("location");
-    errors.result && searchParams.delete("result");
-    errors.source && searchParams.delete("source");
-    redirect(`/matches/${params.matchId}/${searchParams}`);
-  }
-
-  const filters = {
-    source: searchParams?.get("source") || undefined,
-  };
 
   return (
     <div className="p-4 lg:p-8 xl:p-12">
