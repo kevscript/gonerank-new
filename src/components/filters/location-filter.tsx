@@ -1,6 +1,7 @@
 "use client";
 
 import { VALID_LOCATION_PARAMS } from "@/constants";
+import { Home, Plane } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const FILTER_LOCATION_KEY = "location" as const;
@@ -39,8 +40,7 @@ export function LocationFilter() {
           htmlFor="location-home"
           className="w-10 justify-center select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-neutral-50 peer-checked:text-gray-900 peer-checked:border-gray-200 rounded-l border-r-0"
         >
-          {" "}
-          H{" "}
+          <Home />
         </label>
       </div>
       <div className="flex">
@@ -55,8 +55,7 @@ export function LocationFilter() {
           htmlFor="location-away"
           className="w-10 justify-center select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-neutral-50 peer-checked:text-gray-900 peer-checked:border-gray-200 rounded-r"
         >
-          {" "}
-          A{" "}
+          <Plane />
         </label>
       </div>
     </div>

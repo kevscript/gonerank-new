@@ -35,7 +35,7 @@ export function ResultFilter() {
         />
         <label
           htmlFor="result-win"
-          className="w-10 justify-center select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-neutral-50 peer-checked:text-gray-900 peer-checked:border-gray-200 rounded-l border-r-0"
+          className="w-10 justify-center select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-neutral-50 peer-checked:text-blue-700 peer-checked:border-gray-200 rounded-l border-r-0"
         >
           {" "}
           W{" "}
@@ -51,7 +51,7 @@ export function ResultFilter() {
         />
         <label
           htmlFor="result-draw"
-          className="w-10 justify-center select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-neutral-50 peer-checked:text-gray-900 peer-checked:border-gray-200"
+          className="w-10 justify-center select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-neutral-50 peer-checked:text-gray-600 peer-checked:border-gray-200"
         >
           {" "}
           D{" "}
@@ -67,7 +67,7 @@ export function ResultFilter() {
         />
         <label
           htmlFor="result-lose"
-          className="w-10 justify-center select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-neutral-50 peer-checked:text-gray-900 peer-checked:border-gray-200 rounded-r border-l-0"
+          className="w-10 justify-center select-none cursor-pointer border h-10 flex items-center font-bold text-gray-200 transition-colors duration-200 ease-in-out peer-checked:bg-neutral-50 peer-checked:text-red-600 peer-checked:border-gray-200 rounded-r border-l-0"
         >
           {" "}
           L{" "}
