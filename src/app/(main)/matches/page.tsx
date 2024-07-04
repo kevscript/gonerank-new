@@ -1,3 +1,4 @@
+import { BreadCrumbs } from "@/components/breadcrumbs/bread-crumbs";
 import { FilterGroup } from "@/components/filters/filter-group";
 import { MatchesPageHeader } from "@/components/matches-page-header";
 import { MatchesTable } from "@/components/tables/matches/matches-table";
@@ -28,6 +29,10 @@ export default async function MatchesPage() {
 
   return (
     <div className="p-4 lg:p-8 xl:p-12">
+      <div className="mb-12">
+        <BreadCrumbs crumbs={[{ label: "Matches", href: "/matches" }]} />
+      </div>
+
       <MatchesPageHeader />
 
       <div className="my-8">

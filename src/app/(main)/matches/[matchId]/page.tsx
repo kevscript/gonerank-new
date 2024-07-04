@@ -1,3 +1,4 @@
+import { MatchBreadCrumbs } from "@/components/breadcrumbs/match-bread-crumbs";
 import { SourceFilter } from "@/components/filters/source-filter";
 import { MatchHeader } from "@/components/match-header";
 import { MatchTable } from "@/components/tables/match/match-table";
@@ -32,6 +33,10 @@ export default async function MatchPage({
 
   return (
     <div className="p-4 lg:p-8 xl:p-12">
+      <div className="mb-12">
+        <MatchBreadCrumbs matchId={params.matchId} />
+      </div>
+
       <MatchHeader matchId={params.matchId} />
 
       <div className="my-8">

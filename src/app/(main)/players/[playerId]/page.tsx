@@ -1,3 +1,4 @@
+import { PlayerBreadCrumbs } from "@/components/breadcrumbs/player-bread-crumbs";
 import { FilterGroup } from "@/components/filters/filter-group";
 import { PlayerHeader } from "@/components/player-header";
 import { PlayerTable } from "@/components/tables/player/player-table";
@@ -32,6 +33,10 @@ export default async function PlayerPage({
 
   return (
     <div className="p-4 lg:p-8 xl:p-12">
+      <div className="mb-12">
+        <PlayerBreadCrumbs playerId={params.playerId} />
+      </div>
+
       <PlayerHeader playerId={params.playerId} />
 
       <div className="my-8">
