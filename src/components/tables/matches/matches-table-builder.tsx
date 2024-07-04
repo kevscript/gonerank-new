@@ -12,7 +12,9 @@ import {
   ArrowUpRight,
   Calendar,
   Globe,
+  Home,
   MapPin,
+  Plane,
   Swords,
   Trophy,
 } from "lucide-react";
@@ -93,7 +95,11 @@ export function MatchesTableBuilder({
         },
         cell: (data) => (
           <TableCell minRem={4}>
-            <span>{data.getValue()}</span>
+            {data.getValue() === "AWAY" ? (
+              <Plane className="size-4" />
+            ) : (
+              <Home className="size-4" />
+            )}
           </TableCell>
         ),
       }),
