@@ -7,9 +7,7 @@ export type MatchTableData = Awaited<ReturnType<typeof getMatchTableData>>[0];
 
 type MatchTableProps = {
   matchId: string;
-  filters: {
-    source: Filters["source"];
-  };
+  filters: Filters;
 };
 
 export async function MatchTable({ matchId, filters }: MatchTableProps) {
