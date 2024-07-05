@@ -89,6 +89,6 @@ export const getPlayerTableData = unstable_cache(
       .orderBy("m.start_date", "asc") // Order by match start date
       .execute();
   },
-  ["public-players"],
-  { tags: ["public"], revalidate: 60 }
+  ["public-player"],
+  { tags: ["public"], revalidate: 300 }
 );

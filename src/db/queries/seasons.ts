@@ -11,5 +11,5 @@ export const getPublishedSeasons = unstable_cache(
       .execute();
   },
   ["public-seasons"],
-  { tags: ["public"], revalidate: 60 }
+  { tags: ["public"], revalidate: 300 }
 );

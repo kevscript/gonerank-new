@@ -62,5 +62,5 @@ export const getMatchTableData = unstable_cache(
   },
 
   ["public-match"],
-  { tags: ["public"], revalidate: 60 }
+  { tags: ["public"], revalidate: 300 }
 );

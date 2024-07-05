@@ -110,5 +110,5 @@ export const getPlayersTableData = unstable_cache(
       .execute();
   },
   ["public-players"],
-  { tags: ["public"], revalidate: 60 }
+  { tags: ["public"], revalidate: 300 }
 );

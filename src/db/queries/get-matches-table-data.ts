@@ -109,5 +109,5 @@ export const getMatchesTableData = unstable_cache(
       .execute();
   },
   ["public-matches"],
-  { tags: ["public"], revalidate: 60 }
+  { tags: ["public"], revalidate: 300 }
 );
