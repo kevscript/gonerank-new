@@ -5,11 +5,17 @@ export function UserProfile({ horizontal = false }: { horizontal?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const avatarRef = useRef(null);
 
+  function handleClickOutside() {
+    if (isOpen) {
+      setIsOpen(false);
+    }
+  }
+
   const positionStyle = horizontal
     ? "left-12 bottom-0 flex-col-reverse"
     : "right-0 top-11 flex-col";
 
-  useOutsideClick({ ref: avatarRef, action: () => setIsOpen((x) => !x) });
+  useOutsideClick({ ref: avatarRef, action: handleClickOutside });
 
   return (
     <div className="relative" ref={avatarRef}>
