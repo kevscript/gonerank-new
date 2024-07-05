@@ -7,7 +7,7 @@ import {
 import {
   validateCompetitionParam,
   validateSeasonParam,
-} from "./utils/param-validators";
+} from "../utils/param-validators";
 
 export const filterParamsSchema = z.object({
   source: z.union([z.enum(VALID_SOURCE_PARAMS), z.undefined()]),

@@ -1,4 +1,4 @@
-import { filterParamsSchema } from "@/schemas";
+import { filterParamsSchema } from "@/schemas/filters-schema";
 
 type ValidParamsReturnType = {
   valid: true;
