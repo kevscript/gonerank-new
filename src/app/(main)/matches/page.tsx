@@ -1,6 +1,6 @@
 import { BreadCrumbs } from "@/components/breadcrumbs/bread-crumbs";
 import { FilterGroup } from "@/components/filters/filter-group";
-import { MatchesPageHeader } from "@/components/matches-page-header";
+import { MatchesHeader } from "@/components/matches-header";
 import { MatchesTable } from "@/components/tables/matches/matches-table";
 import { generateFiltersFromParams } from "@/utils/generate-filters-from-params";
 import { validateFilterParams } from "@/utils/validate-filter-params";
@@ -33,7 +33,7 @@ export default async function MatchesPage() {
         <BreadCrumbs crumbs={[{ label: "Matches", href: "/matches" }]} />
       </div>
 
-      <MatchesPageHeader />
+      <MatchesHeader />
 
       <div className="my-8">
         <FilterGroup />

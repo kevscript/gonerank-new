@@ -1,6 +1,6 @@
 import { MatchesPageTabs } from "./matches-tabs";
 
-export function MatchesPageHeader() {
+export function MatchesHeader() {
   return (
     <div className="flex justify-between gap-8 items-baseline w-full relative">
       <h1 className="font-bold text-3xl tracking-tight">Matches</h1>
