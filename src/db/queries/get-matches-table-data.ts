@@ -108,5 +108,6 @@ export const getMatchesTableData = unstable_cache(
       .orderBy("m.start_date")
       .execute();
   },
-  ["seasons", "matches", "players", "competitions", "clubs", "votes"]
+  ["public-matches"],
+  { tags: ["public"], revalidate: 60 }
 );

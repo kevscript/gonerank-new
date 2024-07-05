@@ -109,5 +109,6 @@ export const getPlayersTableData = unstable_cache(
       ])
       .execute();
   },
-  ["seasons", "matches", "players", "competitions", "clubs", "votes"]
+  ["public-players"],
+  { tags: ["public"], revalidate: 60 }
 );

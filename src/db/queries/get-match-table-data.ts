@@ -61,5 +61,6 @@ export const getMatchTableData = unstable_cache(
       .execute();
   },
 
-  ["matches", "players", "votes"]
+  ["public-match"],
+  { tags: ["public"], revalidate: 60 }
 );
