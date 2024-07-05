@@ -1,11 +1,12 @@
 import useOutsideClick from "@/hooks/useOutsideClick";
+import Link from "next/link";
 import { useRef, useState } from "react";
 
 export function UserProfile({ horizontal = false }: { horizontal?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const avatarRef = useRef(null);
 
-  function handleClickOutside() {
+  function handleClose() {
     if (isOpen) {
       setIsOpen(false);
     }
@@ -15,7 +16,7 @@ export function UserProfile({ horizontal = false }: { horizontal?: boolean }) {
     ? "left-12 bottom-0 flex-col-reverse"
     : "right-0 top-11 flex-col";
 
-  useOutsideClick({ ref: avatarRef, action: handleClickOutside });
+  useOutsideClick({ ref: avatarRef, action: handleClose });
 
   return (
     <div className="relative" ref={avatarRef}>
@@ -34,6 +35,11 @@ export function UserProfile({ horizontal = false }: { horizontal?: boolean }) {
             <div className="font-medium truncate">name@flowbite.com</div>
           </div>
           <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+            <Link href={"/admin"} onClick={handleClose}>
+              <li className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left">
+                Admin
+              </li>
+            </Link>
             <li>
               <button className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left">
                 Sign Out

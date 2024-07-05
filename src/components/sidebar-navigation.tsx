@@ -7,6 +7,15 @@ import { usePathname, useSearchParams } from "next/navigation";
 export function SidebarNavigation() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
+
+  if (pathname.startsWith("/admin")) {
+    return (
+      <ul className="flex flex-col">
+        <li>Admin Nav</li>
+      </ul>
+    );
+  }
+
   return (
     <ul className="flex flex-col">
       <Link href={"/home"}>
