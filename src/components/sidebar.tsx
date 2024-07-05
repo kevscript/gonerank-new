@@ -1,5 +1,8 @@
+"use client";
+
 import { Suspense } from "react";
 import { SidebarNavigation } from "./sidebar-navigation";
+import { UserProfile } from "./user-profile";
 
 export function Sidebar() {
   return (
@@ -17,7 +20,7 @@ export function Sidebar() {
             </Suspense>
           </div>
           <div className="w-full flex justify-center">
-            <div className="size-10 rounded-full bg-neutral-200"></div>
+            <UserProfile horizontal />
           </div>
         </div>
       </div>

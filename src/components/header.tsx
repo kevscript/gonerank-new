@@ -2,6 +2,7 @@
 
 import { usePopbar } from "@/hooks/usePopbar";
 import { PanelLeftOpen } from "lucide-react";
+import { UserProfile } from "./user-profile";
 
 export function Header() {
   const { handlePopStatus, popStatus } = usePopbar();
@@ -18,7 +19,8 @@ export function Header() {
             <span className="font-black">GR</span>
           </div>
         </div>
-        <div className="size-10 rounded-full bg-neutral-200"></div>
+
+        <UserProfile />
       </div>
     </header>
   );
