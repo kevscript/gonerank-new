@@ -106,7 +106,7 @@ export function AdminClubsTableBuilder({
         </TableCell>
       ),
       cell: (data) => (
-        <Link href={`/admin/competitions/${data.getValue()}`}>
+        <Link href={`/admin/clubs/${data.getValue()}`}>
           <TableCell align="center" minRem={4}>
             <Pen className="size-4" />
           </TableCell>
