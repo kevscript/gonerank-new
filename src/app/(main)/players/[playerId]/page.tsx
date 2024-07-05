@@ -33,7 +33,7 @@ export default async function PlayerPage({
 
   return (
     <div className="p-4 lg:p-8 xl:p-12">
-      <div className="mb-12">
+      <div className="mb-12 hidden lg:block">
         <PlayerBreadCrumbs playerId={params.playerId} />
       </div>
 

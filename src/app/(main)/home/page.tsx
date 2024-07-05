@@ -3,7 +3,7 @@ import { BreadCrumbs } from "@/components/breadcrumbs/bread-crumbs";
 export default function HomePage() {
   return (
     <div className="p-4 lg:p-8 xl:p-12">
-      <div className="mb-12">
+      <div className="mb-12 hidden lg:block">
         <BreadCrumbs />
       </div>
       <div className="flex justify-between gap-8 items-baseline w-full relative pb-4">

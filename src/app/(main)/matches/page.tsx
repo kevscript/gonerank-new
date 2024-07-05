@@ -29,7 +29,7 @@ export default async function MatchesPage() {
 
   return (
     <div className="p-4 lg:p-8 xl:p-12">
-      <div className="mb-12">
+      <div className="mb-12 hidden lg:block">
         <BreadCrumbs crumbs={[{ label: "Matches", href: "/matches" }]} />
       </div>
 
