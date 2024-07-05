@@ -6,7 +6,6 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const Button = ({
   children,
-  onClick,
   type = "button",
   disabled = false,
   className = "",
@@ -22,9 +21,8 @@ const Button = ({
   return (
     <button
       type={type}
-      onClick={onClick}
       disabled={disabled}
-      className={`py-2 px-4 rounded transition-colors duration-300 ${
+      className={`font-medium py-2 px-4 rounded transition-colors duration-300 text-sm ${
         disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer"
       } ${variantStyles[variant]} ${className}`}
       style={style}
